@@ -1,0 +1,70 @@
+@import '~@angular/material/theming'; 
+@include mat-core();
+
+$my-primary-palette: (
+ 50: #330411,
+ 100: #22020b,
+ 200: #22020a,
+ 300: #20010a,
+ 400: #1d020a,
+ 500: #24020e,
+ 600: #250310,
+ 700: #20020e,
+ 800: #20020f,
+ 900: #16010c,
+ // ... continues to 900
+ contrast: (
+   50: rgba(#22010a, 0.87),
+   100: rgba(#20010a, 0.87),
+   200: rgba(#1d0109, 0.87),
+   300: rgba(#1f0109, 0.87),
+   400: rgba(#1b0109, 0.87),
+   500: rgba(#1d020b, 0.87),
+   600: rgba(#1f010c, 0.87),
+   700: rgba(#18010a, 0.87),
+   800: rgba(#130109, 0.87),
+   900: rgba(#110109, 0.87),
+   // ... continues to 900
+ )
+);
+ 
+$my-accent-palette: (
+ 50: #fcf7e1,
+ 100: #f9eab3,
+ 200: #f5dc81,
+ 300: #f2d04f,
+ 400: #f0c42b,
+ 500: #eebb10,
+ 600: #eead07,
+ 700: #ee9b02,
+ 800: #ee8b00,
+ 900: #ed6d00,
+ // ... continues to 900
+ contrast: (
+   50: rgba(#fcf7e1, 0.87),
+   100: rgba(#f9eab3, 0.87),
+   200: rgba(#f5dc81, 0.87),
+   300: rgba(#f2d04f, 0.87),
+   400: rgba(#f0c42b, 0.87),
+   500: rgba(#eebb10, 0.87),
+   600: rgba(#eead07, 0.87),
+   700: rgba(#ee9b02, 0.87),
+   800: rgba(#ee8b00, 0.87),
+   900: rgba(#ed6d00, 0.87),
+   // ... continues to 900
+ )
+);
+
+$primary-light:  mat-palette($mat-gray, A1, A100, A400);
+$accent-light: mat-palette($mat-gray, A200, A100, A400);
+$light-theme: mat-light-theme($primary-light, $accent-light);
+ 
+@include angular-material-theme($light-theme);
+
+$primary-dark: mat-palette($mat-purple);
+$accent-dark:  mat-palette($mat-green, A200, A100, A400);
+$dark-theme: mat-dark-theme($primary-dark, $accent-dark);
+
+.dark-theme {
+    @include angular-material-theme($dark-theme);
+}

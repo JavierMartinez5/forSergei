@@ -1,0 +1,66 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" style="top: 64px;" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <!-- <a mat-list-item href="#">Link 1</a>
+      <a mat-list-item href="#">Link 2</a>
+      <a mat-list-item href="#">Link 3</a> -->
+      <div class="nav-content" *ngFor="let item of navContent">
+        <mat-divider></mat-divider>
+        <h4 class="section-title">{{item.sectionTitle}}</h4>
+        <div class="chapter" *ngFor="let chapter of item.chapters">
+          <a class="chapter-link" routerLinkActive="active-link" mat-list-item [routerLink]="[ '/javaScript', chapter.id, 'theory' ]">{{chapter.chapterTitle}}</a>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+      
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="accent">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+
+
+      <div *ngIf="true">
+        <nav mat-tab-nav-bar >
+          <a mat-tab-link *ngFor="let link of links"
+             (click)="activeLink = link.title"
+             [active]="activeLink == link.title"
+             class="chapter-link" routerLinkActive="active-link" mat-list-item [routerLink]="[ '/javaScript', currentChapterId, link.linkRoute ]"
+             > {{link.title}} </a>
+        </nav>
+      </div>
+
+
+      <!-- <nav mat-tab-nav-bar [backgroundColor]="'primary'">
+        <a mat-tab-link class="chapter-link" routerLinkActive="active-link" mat-list-item [routerLink]="[ '/javaScript', currentChapterId || 'null', 'theory' ]">ТЕОРІЯ</a>
+        <a mat-tab-link class="chapter-link" routerLinkActive="active-link" mat-list-item [routerLink]="[ '/javaScript', currentChapterId || 'null', 'tests' ]">ТЕСТИ</a>
+        <a mat-tab-link class="chapter-link" routerLinkActive="active-link" mat-list-item [routerLink]="[ '/javaScript', currentChapterId || 'null', 'practice' ]">ЗАВДАННЯ</a>
+
+      </nav> -->
+      
+      <!-- <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="ТЕОРІЯ">
+        </mat-tab>
+        <mat-tab label="ТЕСТИ">
+        </mat-tab>
+        <mat-tab label="ЗАВДАННЯ">
+        </mat-tab>
+      </mat-tab-group> -->
+      
+
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
