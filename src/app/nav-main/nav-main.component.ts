@@ -2,8 +2,7 @@ import { AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit } from '@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { ActivatedRoute, Params } from '@angular/router';
-import { RouteService } from '../services/route.service';
+import { Router } from '@angular/router';
 
 export interface NavContent {
   sectionTitle: string
@@ -16,8 +15,8 @@ export interface Chapter {
 }
 
 export interface TabsLink {
-  title: string
-  linkRoute: string
+  linkTitle: string
+  sectionRouteTitle: string
 }
 
 @Component({
@@ -37,23 +36,24 @@ export class NavMainComponent implements OnInit, OnDestroy {
 
   pSub!: Subscription
 
-  currentChapterId: string | null = null
+  currentSection = 'theory'
+  
+  public links: TabsLink[] = [{linkTitle: 'ТЕОРІЯ', sectionRouteTitle: 'theory'}, {linkTitle: 'ТЕСТИ', sectionRouteTitle: 'tests'}, {linkTitle: 'ЗАВДАННЯ', sectionRouteTitle: 'practice'}]
+  
+  public currentChapterId = this.navContent[0].chapters[0].id
+  
+  activeLink = this.links[0].linkTitle;
+  
 
-  public links: TabsLink[] = [{title: 'ТЕОРІЯ', linkRoute: 'theory'}, {title: 'ТЕСТИ', linkRoute: 'tests'}, {title: 'ЗАВДАННЯ', linkRoute: 'practice'}]
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {}
 
-  activeLink = this.links[0].title;
-  showTabsLink: boolean | string = false
-
-  constructor(private breakpointObserver: BreakpointObserver, private routeService: RouteService) {}
-
-
+  onTabLinkClick(linkTitle: string, sectionRouteTitle: string) {
+    this.activeLink = linkTitle
+    this.currentSection = sectionRouteTitle
+  }
   
   ngOnInit() {
-    console.log(this.currentChapterId)
-    this.pSub = this.routeService.$currentParam.subscribe((param: string | null) => {
-      console.log(param)
-      this.currentChapterId = param
-    })
+    this.router.navigate([ '/javaScript', this.navContent[0].chapters[0].id , this.links[0].sectionRouteTitle ])
   }
 
 

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { RouteService } from 'src/app/services/route.service';
+import { Component, Input, OnInit } from '@angular/core';
 
-
+export interface SomeObj {
+  currentId: string
+  currentSection: string
+}
 
 @Component({
   selector: 'app-content-main-page',
@@ -10,14 +11,12 @@ import { RouteService } from 'src/app/services/route.service';
   styleUrls: ['./content-main-page.component.scss']
 })
 export class ContentMainPageComponent implements OnInit {
+  @Input() someObj!: SomeObj
   
-  constructor( private route: ActivatedRoute, private routeService: RouteService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.routeService.setCurrentParam(params.section)
-      console.log(params.section)
-    })
+    
   }
 
 }

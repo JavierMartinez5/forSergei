@@ -5,10 +5,10 @@
   
       <button mat-button [matMenuTriggerFor]="menu">Turorials <mat-icon>menu_book</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button [routerLink]="['JavaScript']" mat-menu-item>JavaScript</button>
-        <button mat-menu-item>C#</button>
-        <button mat-menu-item>Java</button>
-        <button mat-menu-item>Ruby</button>
+        <button [routerLink]="['javaScript']" mat-menu-item>JavaScript</button>
+        <button mat-menu-item><a href="/some">C#</a></button>
+        <button mat-menu-item><a href="#">Java</a></button>
+        <button mat-menu-item><a href="#">Ruby</a></button>
       </mat-menu>
   
       <button mat-flat-button color="accent">

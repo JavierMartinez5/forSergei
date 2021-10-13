@@ -12,7 +12,8 @@
         <mat-divider></mat-divider>
         <h4 class="section-title">{{item.sectionTitle}}</h4>
         <div class="chapter" *ngFor="let chapter of item.chapters">
-          <a class="chapter-link" routerLinkActive="active-link" mat-list-item [routerLink]="[ '/javaScript', chapter.id, 'theory' ]">{{chapter.chapterTitle}}</a>
+          <!-- <mat-list-item role="listitem" (click)="currentChapterId = chapter.id">Item 1</mat-list-item> -->
+          <a (click)="currentChapterId = chapter.id" class="chapter-link" routerLinkActive="active-link" mat-list-item [routerLink]="[ '/javaScript', chapter.id, currentSection ]">{{chapter.chapterTitle}}</a>
           <mat-divider></mat-divider>
         </div>
       </div>
@@ -30,16 +31,14 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
 
-
-      <div *ngIf="true">
-        <nav mat-tab-nav-bar >
-          <a mat-tab-link *ngFor="let link of links"
-             (click)="activeLink = link.title"
-             [active]="activeLink == link.title"
-             class="chapter-link" routerLinkActive="active-link" mat-list-item [routerLink]="[ '/javaScript', currentChapterId, link.linkRoute ]"
-             > {{link.title}} </a>
-        </nav>
-      </div>
+      <nav mat-tab-nav-bar >
+        <!-- <mat-list-item *ngFor="let link of links" role="listitem" (click)="someObj.currentSection = link.linkRoute">{{link.title}}</mat-list-item> -->
+        <a mat-tab-link *ngFor="let link of links"
+           (click)="onTabLinkClick(link.linkTitle, link.sectionRouteTitle)"
+           [active]="activeLink == link.linkTitle"
+           class="chapter-link" routerLinkActive="active-link" mat-list-item [routerLink]="[ '/javaScript', currentChapterId , link.sectionRouteTitle ]"
+           > {{link.linkTitle}} </a>
+      </nav>
 
 
       <!-- <nav mat-tab-nav-bar [backgroundColor]="'primary'">
@@ -62,5 +61,6 @@
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>
+    <!-- <app-content-main-page [someObj]="someObj" ></app-content-main-page> -->
   </mat-sidenav-content>
 </mat-sidenav-container>
